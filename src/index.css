@@ -1,0 +1,30 @@
+* {
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #474747;
+}
+
+.app-container {
+  display: grid;
+  height: 100vh;
+  overflow: auto;
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  background-color: rgb(48, 48, 48);
+}
