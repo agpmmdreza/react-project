@@ -92,7 +92,7 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem('exp', expTime);
     localStorage.setItem('baseURL', baseURL);
     const remaining = calcRemainingTime(expTime);
-    timeout = setTimeout(logoutHandler, remaining);
+    timeout = setTimeout(logoutHandler, 1000000);
   };
 
   const setURL = (url) => {
