@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import jwtDecode from 'jwt-decode';
 
 const AuthContext = React.createContext({
   token: '',
@@ -19,12 +18,12 @@ const AuthContext = React.createContext({
 let timeout;
 
 const calcRemainingTime = (expTime) => {
-    const currTime = new Date(
+  const currTime = new Date(
     new Date().toLocaleString('en-US', { timeZone: 'Asia/Tehran' })
   ).getTime();
   const expiring = new Date(
     new Date(expTime).toLocaleString('en-US', { timeZone: 'Asia/Tehran' })
-  ).getTime();;
+  ).getTime();
   return expiring - currTime;
 };
 
@@ -51,6 +50,7 @@ export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(initToken);
   const [open, setOpen] = useState(false);
   const [navTitle, setNavTitle] = useState('Dashboard');
+  let userRole;
   const [baseURL, setBaseURL] = useState(
     localStorage.getItem('baseURL')
       ? localStorage.getItem('baseURL')
@@ -58,18 +58,18 @@ export const AuthContextProvider = (props) => {
   );
 
   const userLoggedIn = !!token;
-  let userRole = useRef(null);
+  userRole = useRef(localStorage.getItem('role'));
 
-  if (token != null) {
-    const decoded = jwtDecode(token);
-    if ('isAdmin' in decoded) {
-      userRole.current = 'ADMIN';
-    } else if ('isMaster' in decoded) {
-      userRole.current = 'MASTER';
-    } else if ('isStudent' in decoded) {
-      userRole.current = 'STUDENT';
-    }
-  }
+  // if (token != null) {
+  //   const decoded = jwtDecode(token);
+  //   if ('isAdmin' in decoded) {
+  //     userRole.current = 'ADMIN';
+  //   } else if ('isMaster' in decoded) {
+  //     userRole.current = 'MASTER';
+  //   } else if ('isStudent' in decoded) {
+  //     userRole.current = 'STUDENT';
+  //   }
+  // }
 
   const openDrawerHandler = () => {
     setOpen(true);
@@ -88,13 +88,14 @@ export const AuthContextProvider = (props) => {
     if (timeout) {
       clearTimeout(timeout);
     }
-  }, []);
+  }, [userRole]);
 
   const loginHandler = (token, userRole, expTime) => {
     setToken(token);
     localStorage.setItem('token', token);
     localStorage.setItem('exp', expTime);
     localStorage.setItem('baseURL', baseURL);
+    localStorage.setItem('role', userRole);
     const remaining = calcRemainingTime(expTime);
     timeout = setTimeout(logoutHandler, remaining);
   };
