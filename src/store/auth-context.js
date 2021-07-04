@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 const AuthContext = React.createContext({
   token: '',
@@ -50,7 +50,7 @@ export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(initToken);
   const [open, setOpen] = useState(false);
   const [navTitle, setNavTitle] = useState('Dashboard');
-  let userRole;
+  const [userRole, setUserRole] = useState(localStorage.getItem('role'));
   const [baseURL, setBaseURL] = useState(
     localStorage.getItem('baseURL')
       ? localStorage.getItem('baseURL')
@@ -58,7 +58,6 @@ export const AuthContextProvider = (props) => {
   );
 
   const userLoggedIn = !!token;
-  userRole = useRef(localStorage.getItem('role'));
 
   // if (token != null) {
   //   const decoded = jwtDecode(token);
@@ -92,6 +91,7 @@ export const AuthContextProvider = (props) => {
 
   const loginHandler = (token, userRole, expTime) => {
     setToken(token);
+    setUserRole(userRole);
     localStorage.setItem('token', token);
     localStorage.setItem('exp', expTime);
     localStorage.setItem('baseURL', baseURL);
@@ -117,7 +117,7 @@ export const AuthContextProvider = (props) => {
   const contextValue = {
     token: token,
     isLoggedIn: userLoggedIn,
-    userRole: userRole.current,
+    userRole: userRole,
     isDrawerOpen: open,
     openDrawer: openDrawerHandler,
     closeDrawer: closeDrawerHandler,
