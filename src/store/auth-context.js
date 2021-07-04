@@ -98,7 +98,7 @@ export const AuthContextProvider = (props) => {
     console.log(expTime)
     console.log(new Date(
     new Date().toLocaleString('en-US', { timeZone: 'Asia/Tehran' })
-  ).getTime();)
+  ).getTime())
     timeout = setTimeout(logoutHandler, remaining);
   };
 
