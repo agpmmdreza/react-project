@@ -96,11 +96,6 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem('exp', expTime);
     localStorage.setItem('baseURL', baseURL);
     const remaining = calcRemainingTime(expTime);
-    console.log(remaining)
-    console.log(expTime)
-    console.log(new Date(
-    new Date().toLocaleString('en-US', { timeZone: 'Asia/Tehran' })
-  ))
     timeout = setTimeout(logoutHandler, remaining);
   };
 
