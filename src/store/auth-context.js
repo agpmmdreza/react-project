@@ -19,7 +19,9 @@ const AuthContext = React.createContext({
 let timeout;
 
 const calcRemainingTime = (expTime) => {
-  const currTime = new Date().getTime();
+    const currTime = new Date(
+    new Date().toLocaleString('en-US', { timeZone: 'Asia/Tehran' })
+  ).getTime();
   const expiring = new Date(expTime).getTime();
   return expiring - currTime;
 };
