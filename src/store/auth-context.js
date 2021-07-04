@@ -22,7 +22,9 @@ const calcRemainingTime = (expTime) => {
     const currTime = new Date(
     new Date().toLocaleString('en-US', { timeZone: 'Asia/Tehran' })
   ).getTime();
-  const expiring = new Date(expTime).getTime();
+  const expiring = new Date(
+    new Date(expTime).toLocaleString('en-US', { timeZone: 'Asia/Tehran' })
+  ).getTime();;
   return expiring - currTime;
 };
 
@@ -98,7 +100,7 @@ export const AuthContextProvider = (props) => {
     console.log(expTime)
     console.log(new Date(
     new Date().toLocaleString('en-US', { timeZone: 'Asia/Tehran' })
-  ).getTime())
+  ))
     timeout = setTimeout(logoutHandler, remaining);
   };
 
