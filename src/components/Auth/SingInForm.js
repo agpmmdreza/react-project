@@ -96,7 +96,7 @@ const SignInForm = () => {
     event.preventDefault();
 
     if (validation.password.value !== '' && validation.userName.value !== '') {
-      fetch(`${authCtx.baseURL}/auth/login`, {
+      fetch(`${authCtx.baseURL}/api/auth/login`, {
         method: 'POST',
         body: JSON.stringify({
           code: validation.userName.value,
