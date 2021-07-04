@@ -35,9 +35,9 @@ function App() {
             {authCtx.isLoggedIn && (
               <Fragment>
                 <Route path='/dashboard'>
-                  {authCtx.userRole === 'ADMIN' && <AdminDashboard />}
-                  {authCtx.userRole === 'MASTER' && <MasterDashboard />}
-                  {authCtx.userRole === 'STUDENT' && <StudentDashboard />}
+                  {authCtx.userRole === 'admin' && <AdminDashboard />}
+                  {authCtx.userRole === 'master' && <MasterDashboard />}
+                  {authCtx.userRole === 'student' && <StudentDashboard />}
                 </Route>
               </Fragment>
             )}

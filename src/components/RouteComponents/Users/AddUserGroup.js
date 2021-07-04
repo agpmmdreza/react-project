@@ -1,92 +1,91 @@
 import {
   Button,
   IconButton,
-  
   MenuItem,
   Select,
   Snackbar,
   TextField,
-} from "@material-ui/core";
-import { AddBoxRounded, CloseOutlined } from "@material-ui/icons";
-import { Fragment, useContext, useEffect, useState } from "react";
-import useTitle from "../../../hooks/use-title";
-import AuthContext from "../../../store/auth-context";
-import {makeStyles} from "@material-ui/core/styles";
+} from '@material-ui/core';
+import { AddBoxRounded, CloseOutlined } from '@material-ui/icons';
+import { Fragment, useContext, useEffect, useState } from 'react';
+import useTitle from '../../../hooks/use-title';
+import AuthContext from '../../../store/auth-context';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: "#04c256",
-    color: "black",
+    background: '#04c256',
+    color: 'black',
   },
   container: {
-    "& .MuiTextField-root": {
-      margin: "0.5rem",
-      placeSelf: "center",
+    '& .MuiTextField-root': {
+      margin: '0.5rem',
+      placeSelf: 'center',
     },
-    borderRadius: "2rem",
-    backgroundColor: "#454545",
-    minHeight: "300px",
-    width: "auto",
-    alignContent: "center",
-    display: "flex",
-    alignItems: "center",
+    borderRadius: '2rem',
+    backgroundColor: '#454545',
+    minHeight: '300px',
+    width: 'auto',
+    alignContent: 'center',
+    display: 'flex',
+    alignItems: 'center',
   },
   header: {
-    backgroundColor: "#455a64",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#455a64',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     // maxHeight: 'auto',
   },
   items: {
-    placeSelf: "center",
+    placeSelf: 'center',
   },
   table: {
-    minWidth: "450px",
+    minWidth: '450px',
   },
   textFields: {
-    display: "flex",
-    flexDirection: "row",
+    display: 'flex',
+    flexDirection: 'row',
     // flexWrap: 'wrap',
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   formStyle: {
-    padding: "2rem",
-    display: "grid",
-    gridTemplateRows: "auto auto",
+    padding: '2rem',
+    display: 'grid',
+    gridTemplateRows: 'auto auto',
   },
 }));
 
 const AddUserGroup = () => {
-  useTitle("Add User Group");
-  const [resMessage, setResMessage] = useState("");
+  useTitle('Add User Group');
+  const [resMessage, setResMessage] = useState('');
   const classes = useStyles();
   const INIT_BODY = {
     firstName: {
-      value: "",
+      value: '',
       error: false,
-      helper: "",
+      helper: '',
     },
     lastName: {
-      value: "",
+      value: '',
       error: false,
-      helper: "",
+      helper: '',
     },
     password: {
-      value: "",
+      value: '',
       error: false,
-      helper: "",
+      helper: '',
     },
     code: {
-      value: "",
+      value: '',
       error: false,
-      helper: "",
+      helper: '',
     },
     role: {
-      value: "",
+      value: '',
       error: false,
-      helper: "",
+      helper: '',
     },
   };
   const INITIAL_VALIDATION = [INIT_BODY];
@@ -96,7 +95,7 @@ const AddUserGroup = () => {
   const [inputFields, setinputFields] = useState(INITIAL_VALIDATION);
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
@@ -105,7 +104,7 @@ const AddUserGroup = () => {
   useEffect(() => {
     inputFields.forEach((item) => {
       for (const prop in item) {
-        if (prop.error || prop.value === "") {
+        if (prop.error || prop.value === '') {
           setIsFormValid(false);
         } else {
           setIsFormValid(false);
@@ -130,7 +129,7 @@ const AddUserGroup = () => {
       });
     });
 
-    if (inputFields[index][event.target.name].value !== "") {
+    if (inputFields[index][event.target.name].value !== '') {
       setinputFields((prevState) => {
         return prevState.map((item, i) => {
           if (index !== i) {
@@ -141,7 +140,7 @@ const AddUserGroup = () => {
             [event.target.name]: {
               ...item[event.target.name],
               error: false,
-              helper: "",
+              helper: '',
             },
           };
         });
@@ -152,7 +151,7 @@ const AddUserGroup = () => {
   const handleValidation = (index, event) => {
     // console.log(inputFields[index][event.target.name]);
     console.log(event);
-    if (inputFields[index][event.target.name].value === "") {
+    if (inputFields[index][event.target.name].value === '') {
       setinputFields((prevState) => {
         return prevState.map((item, i) => {
           if (index !== i) {
@@ -163,7 +162,7 @@ const AddUserGroup = () => {
             [event.target.name]: {
               ...item[event.target.name],
               error: true,
-              helper: "Enter value!",
+              helper: 'Enter value!',
             },
           };
         });
@@ -180,7 +179,7 @@ const AddUserGroup = () => {
             code: {
               ...item.code,
               error: true,
-              helper: "Enter a Number!",
+              helper: 'Enter a Number!',
             },
           };
         });
@@ -192,7 +191,7 @@ const AddUserGroup = () => {
     event.preventDefault();
     if (isFormValid) {
       fetch(`${authCtx.baseURL}/api/users/addlist`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(
           inputFields.map((item) => ({
             lastName: item.lastName.value,
@@ -203,17 +202,17 @@ const AddUserGroup = () => {
           }))
         ),
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${authCtx.token}`,
         },
       })
         .then((res) => res.json())
         .then((resData) => {
-          if (resData.status === "success") {
-            setResMessage("Successfully Added!");
+          if (resData.status === 'success') {
+            setResMessage('Successfully Added!');
             setinputFields([INIT_BODY]);
           } else {
-            setResMessage("Something Went Wrong!");
+            setResMessage('Something Went Wrong!');
           }
           setOpen(true);
         });
@@ -237,12 +236,12 @@ const AddUserGroup = () => {
                   helperText={input.firstName.helper}
                   onChange={(event) => handleOnChange(index, event)}
                   onBlur={(event) => handleValidation(index, event)}
-                  variant="outlined"
-                  name="firstName"
-                  label="First Name"
-                  color="secondary"
-                  size="small"
-                  style={{ width: "10rem" }}
+                  variant='outlined'
+                  name='firstName'
+                  label='First Name'
+                  color='secondary'
+                  size='small'
+                  style={{ width: '10rem' }}
                 />
                 <TextField
                   value={input.lastName.value}
@@ -250,12 +249,12 @@ const AddUserGroup = () => {
                   helperText={input.lastName.helper}
                   onChange={(event) => handleOnChange(index, event)}
                   onBlur={(event) => handleValidation(index, event)}
-                  variant="outlined"
-                  name="lastName"
-                  label="Last Name"
-                  color="secondary"
-                  size="small"
-                  style={{ width: "10rem" }}
+                  variant='outlined'
+                  name='lastName'
+                  label='Last Name'
+                  color='secondary'
+                  size='small'
+                  style={{ width: '10rem' }}
                 />
                 <TextField
                   value={input.password.value}
@@ -263,12 +262,12 @@ const AddUserGroup = () => {
                   helperText={input.password.helper}
                   onChange={(event) => handleOnChange(index, event)}
                   onBlur={(event) => handleValidation(index, event)}
-                  variant="outlined"
-                  name="password"
-                  label="Password"
-                  color="secondary"
-                  size="small"
-                  style={{ width: "9rem" }}
+                  variant='outlined'
+                  name='password'
+                  label='Password'
+                  color='secondary'
+                  size='small'
+                  style={{ width: '9rem' }}
                 />
                 <TextField
                   value={input.code.value}
@@ -276,44 +275,44 @@ const AddUserGroup = () => {
                   helperText={input.code.helper}
                   onChange={(event) => handleOnChange(index, event)}
                   onBlur={(event) => handleValidation(index, event)}
-                  variant="outlined"
-                  name="code"
-                  label="Code"
-                  color="secondary"
-                  size="small"
-                  style={{ width: "8rem" }}
+                  variant='outlined'
+                  name='code'
+                  label='Code'
+                  color='secondary'
+                  size='small'
+                  style={{ width: '8rem' }}
                 />
                 <Select
                   onBlur={(event) => handleValidation(index, event)}
                   error={input.role.error}
                   displayEmpty
-                  name="role"
+                  name='role'
                   value={input.role.value}
                   style={{
-                    margin: "0.5rem",
-                    width: "192px",
-                    height: "40px",
-                    textAlign: "left",
+                    margin: '0.5rem',
+                    width: '192px',
+                    height: '40px',
+                    textAlign: 'left',
                   }}
                   onChange={(event) => handleOnChange(index, event)}
-                  variant="outlined"
+                  variant='outlined'
                 >
-                  <MenuItem value="">
+                  <MenuItem value=''>
                     <em>Select Role</em>
                   </MenuItem>
-                  <MenuItem value="ADMIN">Admin</MenuItem>
-                  <MenuItem value="STUDENT">Student</MenuItem>
-                  <MenuItem value="MASTER">Master</MenuItem>
+                  <MenuItem value='admin'>Admin</MenuItem>
+                  <MenuItem value='student'>Student</MenuItem>
+                  <MenuItem value='master'>Master</MenuItem>
                 </Select>
               </div>
             ))}
             <IconButton
-              size="small"
+              size='small'
               onClick={handleAddIconClicked}
               style={{
-                display: "inline-block",
-                float: "right",
-                color: "white",
+                display: 'inline-block',
+                float: 'right',
+                color: 'white',
               }}
             >
               <AddBoxRounded />
@@ -321,10 +320,10 @@ const AddUserGroup = () => {
           </div>
           <div className={classes.items}>
             <Button
-              variant="contained"
-              size="medium"
-              type="submit"
-              style={{ minWidth: "192px" }}
+              variant='contained'
+              size='medium'
+              type='submit'
+              style={{ minWidth: '192px' }}
             >
               Add Users
             </Button>
@@ -333,8 +332,8 @@ const AddUserGroup = () => {
       </div>
       <Snackbar
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
+          vertical: 'bottom',
+          horizontal: 'right',
         }}
         ContentProps={{
           classes: {
@@ -348,12 +347,12 @@ const AddUserGroup = () => {
         action={
           <Fragment>
             <IconButton
-              size="small"
-              aria-label="close"
-              color="inherit"
+              size='small'
+              aria-label='close'
+              color='inherit'
               onClick={handleClose}
             >
-              <CloseOutlined fontSize="small" />
+              <CloseOutlined fontSize='small' />
             </IconButton>
           </Fragment>
         }

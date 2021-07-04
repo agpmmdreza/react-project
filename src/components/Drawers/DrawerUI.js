@@ -79,9 +79,9 @@ const DrawerUI = () => {
         </div>
         <Divider style={{ background: 'white' }} />
 
-        {authCtx.userRole === 'ADMIN' && <AdminDrawer />}
-        {authCtx.userRole === 'MASTER' && <MasterDrawer />}
-        {authCtx.userRole === 'STUDENT' && <StudentDrawer />}
+        {authCtx.userRole === 'admin' && <AdminDrawer />}
+        {authCtx.userRole === 'master' && <MasterDrawer />}
+        {authCtx.userRole === 'student' && <StudentDrawer />}
       </Drawer>
     </Fragment>
   );
